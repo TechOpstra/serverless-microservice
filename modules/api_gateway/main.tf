@@ -1,4 +1,3 @@
-
 resource "aws_api_gateway_rest_api" "user_api" {
   name        = var.api_name
   description = "API Gateway for user data management"
@@ -24,7 +23,7 @@ resource "aws_api_gateway_integration" "get_user" {
   http_method             = aws_api_gateway_method.get_user.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
-  uri                     = var.get_user_lambda_arn
+  uri                     = "${var.get_user_lambda_arn}/invocations"
 }
 
 # Method for adding user data (POST)
@@ -41,5 +40,5 @@ resource "aws_api_gateway_integration" "add_user" {
   http_method             = aws_api_gateway_method.add_user.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
-  uri                     = var.add_user_lambda_arn
+  uri                     = "${var.add_user_lambda_arn}/invocations"
 }
