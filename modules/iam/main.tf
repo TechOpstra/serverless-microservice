@@ -1,4 +1,3 @@
-# iam/main.tf
 resource "aws_iam_role" "lambda_role" {
   name = var.role_name
 
@@ -18,7 +17,7 @@ resource "aws_iam_role" "lambda_role" {
 
 resource "aws_iam_policy" "lambda_policy" {
   name        = var.policy_name
-  description = "IAM policy for Lambda functions to access DynamoDB"
+  description = "IAM policy for Lambda functions to access DynamoDB and CloudWatch Logs"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -26,10 +25,21 @@ resource "aws_iam_policy" "lambda_policy" {
         Action = [
           "dynamodb:PutItem",
           "dynamodb:GetItem",
-          "dynamodb:BatchWriteItem"
+          "dynamodb:BatchWriteItem",
+          "dynamodb:Scan",
+          "dynamodb:Query"
         ]
         Effect   = "Allow"
         Resource = var.dynamodb_table_arn
+      },
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect   = "Allow"
+        Resource = "arn:aws:logs:*:*:*"
       }
     ]
   })
