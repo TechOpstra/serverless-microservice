@@ -10,12 +10,12 @@ terraform {
 provider "aws" {
   region = var.region
 }
+
+
 module "dynamodb" {
   source      = "./modules/dynamodb"
-  table_name  = "UserData"
-  tags        = {
-    Environment = "dev"
-  }
+  table_name  = var.dynamodb_table_name
+  tags        = var.tags
 }
 
 module "iam" {
@@ -30,15 +30,14 @@ module "lambda" {
   add_user_function_name  = "AddUserFunction"
   get_user_function_name  = "GetUserFunction"
   lambda_role_arn         = module.iam.lambda_role_arn
-  add_user_zip_file       = "modules/lambda_functions/add_user.zip"
-  get_user_zip_file       = "modules/lambda_functions/get_user.zip"
+  add_user_zip_file       = var.add_user_zip_file
+  get_user_zip_file       = var.get_user_zip_file
   dynamodb_table_name     = module.dynamodb.dynamodb_table_name
 }
 
 module "api_gateway" {
   source              = "./modules/api_gateway"
-  api_name            = "UserAPI"
+  api_name            = var.api_name
   get_user_lambda_arn = module.lambda.get_user_lambda_arn
   add_user_lambda_arn = module.lambda.add_user_lambda_arn
 }
-
