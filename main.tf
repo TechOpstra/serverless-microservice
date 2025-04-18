@@ -40,4 +40,5 @@ module "api_gateway" {
   api_name            = var.api_name
   get_user_lambda_arn = module.lambda.get_user_lambda_arn
   add_user_lambda_arn = module.lambda.add_user_lambda_arn
+  region              = var.region
 }
