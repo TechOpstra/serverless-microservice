@@ -3,7 +3,7 @@ import boto3
 import uuid
 
 def lambda_handler(event, context):
-    table_name = 'serverless_workshop_intro'
+    table_name = 'UserData'
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(table_name)
 
