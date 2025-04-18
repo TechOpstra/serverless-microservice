@@ -1,4 +1,15 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.94.1"
+    }
+  }
+}
 
+provider "aws" {
+  region = var.region
+}
 module "dynamodb" {
   source      = "./modules/dynamodb"
   table_name  = "UserData"
