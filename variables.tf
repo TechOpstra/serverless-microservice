@@ -19,11 +19,13 @@ variable "lambda_role_arn" {
 variable "add_user_zip_file" {
   description = "Path to the ZIP file containing the add user Lambda function code"
   type        = string
+  default     = "modules/lambda_functions/get_user.zip"
 }
 
 variable "get_user_zip_file" {
   description = "Path to the ZIP file containing the get user Lambda function code"
   type        = string
+  default     = "modules/lambda_functions/add_user.zip"
 }
 
 variable "api_name" {
