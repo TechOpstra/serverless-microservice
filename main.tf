@@ -1,4 +1,4 @@
-# main.tf
+
 module "dynamodb" {
   source      = "./modules/dynamodb"
   table_name  = "UserData"
@@ -7,13 +7,20 @@ module "dynamodb" {
   }
 }
 
+module "iam" {
+  source             = "./modules/iam"
+  role_name          = "lambda-role"
+  policy_name        = "lambda-policy"
+  dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
+}
+
 module "lambda" {
   source                  = "./modules/lambda"
   add_user_function_name  = "AddUserFunction"
   get_user_function_name  = "GetUserFunction"
-  lambda_role_arn         = "arn:aws:iam::123456789012:role/lambda-role"
-  add_user_zip_file       = "path/to/add_user.zip"
-  get_user_zip_file       = "path/to/get_user.zip"
+  lambda_role_arn         = module.iam.lambda_role_arn
+  add_user_zip_file       = "lambda_functions/add_user.zip"
+  get_user_zip_file       = "lambda_functions/get_user.zip"
   dynamodb_table_name     = module.dynamodb.dynamodb_table_name
 }
 
