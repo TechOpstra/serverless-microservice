@@ -11,10 +11,6 @@ variable "dynamodb_table_name" {
   default     = "UserData"
 }
 
-variable "lambda_role_arn" {
-  description = "ARN of the IAM role for Lambda functions"
-  type        = string
-}
 
 variable "add_user_zip_file" {
   description = "Path to the ZIP file containing the add user Lambda function code"
