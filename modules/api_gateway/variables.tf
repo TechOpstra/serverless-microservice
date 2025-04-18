@@ -14,6 +14,6 @@ variable "add_user_lambda_arn" {
 }
 
 variable "region" {
-  description = "AWS region"
-  type        = string
+  description = "aws region"
+  type        = string
 }
