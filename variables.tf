@@ -15,6 +15,11 @@ variable "add_user_zip_file" {
   type        = string
 }
 
+variable "get_user_zip_file" {
+  description = "Path to the ZIP file containing the get user Lambda function code"
+  type        = string
+}
+
 variable "api_name" {
   description = "Name of the API Gateway"
   type        = string
