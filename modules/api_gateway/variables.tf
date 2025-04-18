@@ -12,3 +12,8 @@ variable "add_user_lambda_arn" {
   description = "ARN of the add user Lambda function"
   type        = string
 }
+
+variable "region" {
+  description = "AWS region"
+  type        = string
+}
