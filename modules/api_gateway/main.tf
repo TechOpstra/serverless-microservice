@@ -23,7 +23,7 @@ resource "aws_api_gateway_integration" "get_user" {
   http_method             = aws_api_gateway_method.get_user.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
-  uri                     = "${var.get_user_lambda_arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.get_user_lambda_arn}/invocations"
 }
 
 # Method for adding user data (POST)
@@ -40,5 +40,5 @@ resource "aws_api_gateway_integration" "add_user" {
   http_method             = aws_api_gateway_method.add_user.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
-  uri                     = "${var.add_user_lambda_arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.add_user_lambda_arn}/invocations"
 }
